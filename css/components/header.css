@@ -1,0 +1,41 @@
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px #0002;
+}
+
+header > .logo {
+  margin-right: auto;
+}
+
+header a {
+  font-size: 20px;
+  color: #333;
+}
+header a:hover {
+  font-size: 20px;
+  color: #36f;
+}
+
+header > .langs {
+  display: flex;
+}
+header > .langs > .lang {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+header > .langs > .lang:hover,
+header > .langs > .lang.active {
+  background-color: #36f;
+  color: #fff;
+}
