@@ -40,20 +40,25 @@ class Nav {
     getData(callback) {
         const URL = `https://front-end-by-rimantas.github.io/26-grupe-local-storage/js/data/nav-${this.language}.json`;
 
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                callback(this.responseText);
-            }
-        };
-        xhttp.open("GET", URL, true);
-        xhttp.send();
+        // const xhttp = new XMLHttpRequest();
+        // xhttp.onreadystatechange = function () {
+        //     if (this.readyState == 4 && this.status == 200) {
+        //         callback(this.responseText);
+        //     }
+        // };
+        // xhttp.open("GET", URL, true);
+        // xhttp.send();
+
+        fetch(URL)
+            .then(response => response.json())
+            .then(data => this.render(data));
     }
 
     render(newContent) {
         let HTML = '';
 
-        this.data = JSON.parse(newContent);
+        this.data = newContent;
+        // this.data = JSON.parse(newContent);
 
         for (const item of this.data) {
             HTML += `<a href="${item.href}">${item.title}</a>`;
