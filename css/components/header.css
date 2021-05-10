@@ -16,6 +16,11 @@ header > .logo {
   margin-right: auto;
 }
 
+header > nav {
+  display: flex;
+  gap: 20px;
+}
+
 header a {
   font-size: 20px;
   color: #333;

@@ -6,6 +6,7 @@ class Languages {
         this.DOM = null;
         this.allLangsDOM = null;
         this.currentLanguage = this.data.default;
+        this.messageTo = [];
 
         this.init();
     }
@@ -39,6 +40,23 @@ class Languages {
         return true;
     }
 
+    /**
+     * Kitu klasiu objektai gali per si metoda nurodyti, jog jiems atsiustu pranesima, jog pasikeite kalba
+     * @param {*} callBackMethod 
+     */
+    addMessenger(callBackMethod) {
+        this.messageTo.push(callBackMethod);
+    }
+
+    /**
+     * Visiems kas uzsiregistravo nurode savo norimus kviestinus metodus, iskvieciame tuo metodus ir jiems perduodame nauja dabartine pasirinkta kalba
+     */
+    sendMessages() {
+        for (const callBackMethod of this.messageTo) {
+            callBackMethod(this.currentLanguage);
+        }
+    }
+
     render() {
         let HTML = '';
 
@@ -67,6 +85,7 @@ class Languages {
                 this.changeLanguage();
 
                 localStorage.setItem('lang', this.currentLanguage);
+                this.sendMessages();
             });
         }
     }

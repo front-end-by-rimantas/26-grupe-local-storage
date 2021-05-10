@@ -1,7 +1,13 @@
 class Nav {
-    constructor(selector, data) {
+    constructor(selector, language) {
         this.selector = selector;
-        this.data = data;
+        this.language = language;
+
+        this.DOM = null;
+        this.data = [];
+
+
+        this.init();
     }
 
     init() {
@@ -14,8 +20,6 @@ class Nav {
         if (!this.DOM) {
             return false;
         }
-
-        this.render();
     }
 
     isValidSelector() {
@@ -26,11 +30,47 @@ class Nav {
         return true;
     }
 
-    render() {
+    updateContent(newLanguage) {
+        this.language = newLanguage;
+        this.getData((data) => {
+            this.render(data);
+        });
+    }
+
+    getData(callback) {
+        const URL = `https://front-end-by-rimantas.github.io/26-grupe-local-storage/js/data/nav-${this.language}.json`;
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                callback(this.responseText);
+            }
+        };
+        xhttp.open("GET", URL, true);
+        xhttp.send();
+    }
+
+    render(newContent) {
         let HTML = '';
+
+        this.data = JSON.parse(newContent);
+
+        for (const item of this.data) {
+            HTML += `<a href="${item.href}">${item.title}</a>`;
+        }
 
         this.DOM.innerHTML = HTML;
     }
 }
 
 export { Nav }
+
+
+
+
+/*
+
+atsiusk duomenis nurodyta kalba
+perpiesk turini (kapitalinis perpiesimas)
+
+*/
